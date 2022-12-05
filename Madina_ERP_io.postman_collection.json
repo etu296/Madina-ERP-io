@@ -1,0 +1,436 @@
+{
+	"info": {
+		"_postman_id": "03c6deb5-7f9d-40d0-b301-bd4caa28cec3",
+		"name": "Madina_ERP_io",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19522491"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData=pm.response.json()\r",
+							"var token=jsonData.token\r",
+							"console.log(token)\r",
+							"pm.collectionVariables.set(\"token\", token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"parvej@madina.co\", \r\n    \"password\": \"ibos@123\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/identity/TokenGenerate/IbosLogin",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"identity",
+						"TokenGenerate",
+						"IbosLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get standard po",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/procurement/PurchaseOrder/GetPurchaseOrderInformationPasignation?status=0&AccountId=1&UnitId=1&Sbu=1&WearHouse=4&PurchaseOrderTypeId=1&PurchaseOrganizationId=1&PageNo=1&PageSize=50&fromDate=2022-12-01&toDate=2022-12-02&sortColumn=purchaseOrderId&sort=descend",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"procurement",
+						"PurchaseOrder",
+						"GetPurchaseOrderInformationPasignation"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "0"
+						},
+						{
+							"key": "AccountId",
+							"value": "1"
+						},
+						{
+							"key": "UnitId",
+							"value": "1"
+						},
+						{
+							"key": "Sbu",
+							"value": "1"
+						},
+						{
+							"key": "WearHouse",
+							"value": "4"
+						},
+						{
+							"key": "PurchaseOrderTypeId",
+							"value": "1"
+						},
+						{
+							"key": "PurchaseOrganizationId",
+							"value": "1"
+						},
+						{
+							"key": "PageNo",
+							"value": "1"
+						},
+						{
+							"key": "PageSize",
+							"value": "50"
+						},
+						{
+							"key": "fromDate",
+							"value": "2022-12-01"
+						},
+						{
+							"key": "toDate",
+							"value": "2022-12-02"
+						},
+						{
+							"key": "sortColumn",
+							"value": "purchaseOrderId"
+						},
+						{
+							"key": "sort",
+							"value": "descend"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get specific standard po",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/procurement/PurchaseOrder/GetPurchaseOrderInformationByPOtoPrint_Id?PurchaseOrderId=20105&OrderTypeId={{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"procurement",
+						"PurchaseOrder",
+						"GetPurchaseOrderInformationByPOtoPrint_Id"
+					],
+					"query": [
+						{
+							"key": "PurchaseOrderId",
+							"value": "20105"
+						},
+						{
+							"key": "OrderTypeId",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create standard po",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"objHeaderDTO\":{\"accountId\":1,\"businessUnitId\":1,\"sbuId\":1,\"plantId\":4,\"leadDay\":0,\"plantName\":\"Gas Stove\",\"warehouseId\":4,\"warehouseName\":\"Gas Stove WH (MPIL) [Gas Stove]\",\"purchaseOrganizationId\":1,\"businessPartnerId\":3,\"purchaseOrderDate\":\"2022-12-05\",\"purchaseOrderTypeId\":1,\"incotermsId\":1,\"currencyId\":141,\"supplierReference\":\"iBOS Limited [100002]\",\"returnDate\":\"2020-12-06T09:35:19.200Z\",\"referenceDate\":\"2022-11-06\",\"referenceTypeId\":4,\"paymentTerms\":2,\"cashOrAdvancePercent\":0,\"otherTerms\":\"\",\"poValidityDate\":\"2022-12-12\",\"lastShipmentDate\":\"2022-12-20\",\"paymentDaysAfterDelivery\":0,\"deliveryAddress\":\"MPIL, Shafipur, Gazipur, Dhaka 1208\",\"actionBy\":1,\"grossDiscount\":0,\"freight\":0,\"commission\":0,\"othersCharge\":0,\"currencyCode\":\"\",\"purchaseOrderNo\":\"\",\"purchaseOrderId\":0},\"objRowListDTO\":[{\"prCsrefId\":0,\"prCsrefCode\":\"\",\"referenceId\":24,\"referenceCode\":\"MPIL-RFQ-112220\",\"referenceQty\":40,\"itemId\":16,\"itemName\":\"Gas stove\",\"uoMid\":107,\"uoMname\":\"Pieces [P]\",\"costCenterId\":0,\"costCenterName\":\"\",\"costElementId\":0,\"costElementName\":\"\",\"profitCenterId\":0,\"profitCenterName\":0,\"purchaseDescription\":\"\",\"orderQty\":23,\"basePrice\":6,\"finalPrice\":138,\"totalValue\":276,\"actionBy\":1,\"lastActionDateTime\":\"2020-11-10T08:52:28.574Z\",\"vatPercentage\":100,\"vatAmount\":138,\"baseVatAmount\":6,\"discount\":0,\"rowId\":0}],\"attachments\":[],\"objScheduleDTO\":[{\"strPayAfter\":\"MRR\",\"intDays\":3,\"numTotalValue\":100,\"intActionBy\":1,\"intPaymentScheduleId\":0}]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/procurement/PurchaseOrder/CreateStanderdAssetServicePurchaseOrder",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"procurement",
+						"PurchaseOrder",
+						"CreateStanderdAssetServicePurchaseOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create multiple standard po",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"objHeaderDTO\":{\"accountId\":1,\"businessUnitId\":1,\"sbuId\":1,\"plantId\":4,\"leadDay\":0,\"plantName\":\"Gas Stove\",\"warehouseId\":4,\"warehouseName\":\"Gas Stove WH (MPIL) [Gas Stove]\",\"purchaseOrganizationId\":1,\"businessPartnerId\":7,\"purchaseOrderDate\":\"2022-12-05\",\"purchaseOrderTypeId\":1,\"incotermsId\":1,\"currencyId\":141,\"supplierReference\":\"\",\"returnDate\":\"2020-12-06T09:35:19.200Z\",\"referenceDate\":\"2020-11-10T08:52:28.574Z\",\"referenceTypeId\":2,\"paymentTerms\":2,\"cashOrAdvancePercent\":0,\"otherTerms\":\"\",\"poValidityDate\":\"2022-12-12\",\"lastShipmentDate\":\"2022-12-20\",\"paymentDaysAfterDelivery\":0,\"deliveryAddress\":\"MPIL, Shafipur, Gazipur, Dhaka 1208\",\"actionBy\":1,\"grossDiscount\":0,\"freight\":0,\"commission\":0,\"othersCharge\":0,\"currencyCode\":\"BDT\",\"purchaseOrderNo\":\"\",\"purchaseOrderId\":0},\"objRowListDTO\":[{\"prCsrefId\":0,\"prCsrefCode\":\"\",\"referenceId\":44,\"referenceCode\":\"MPIL-PR-221140\",\"referenceQty\":100,\"itemId\":16,\"itemName\":\"Gas stove\",\"uoMid\":107,\"uoMname\":\"Pieces [P]\",\"costCenterId\":0,\"costCenterName\":\"\",\"costElementId\":0,\"costElementName\":\"\",\"profitCenterId\":0,\"profitCenterName\":0,\"purchaseDescription\":\"\",\"orderQty\":10,\"basePrice\":12,\"finalPrice\":120,\"totalValue\":121.2,\"actionBy\":1,\"lastActionDateTime\":\"2020-11-10T08:52:28.574Z\",\"vatPercentage\":1,\"vatAmount\":1.2,\"baseVatAmount\":0.12,\"discount\":0,\"rowId\":0},{\"prCsrefId\":0,\"prCsrefCode\":\"\",\"referenceId\":14,\"referenceCode\":\"MPIL-PR-221110\",\"referenceQty\":10,\"itemId\":16,\"itemName\":\"Gas stove\",\"uoMid\":107,\"uoMname\":\"Pieces [P]\",\"costCenterId\":0,\"costCenterName\":\"\",\"costElementId\":0,\"costElementName\":\"\",\"profitCenterId\":0,\"profitCenterName\":0,\"purchaseDescription\":\"\",\"orderQty\":2,\"basePrice\":11,\"finalPrice\":22,\"totalValue\":23.1,\"actionBy\":1,\"lastActionDateTime\":\"2020-11-10T08:52:28.574Z\",\"vatPercentage\":5,\"vatAmount\":1.1,\"baseVatAmount\":0.55,\"discount\":0,\"rowId\":0},{\"prCsrefId\":0,\"prCsrefCode\":\"\",\"referenceId\":12,\"referenceCode\":\"MPIL-PR-22118\",\"referenceQty\":500,\"itemId\":16,\"itemName\":\"Gas stove\",\"uoMid\":107,\"uoMname\":\"Pieces [P]\",\"costCenterId\":0,\"costCenterName\":\"\",\"costElementId\":0,\"costElementName\":\"\",\"profitCenterId\":0,\"profitCenterName\":0,\"purchaseDescription\":\"\",\"orderQty\":3,\"basePrice\":13,\"finalPrice\":39,\"totalValue\":40.95,\"actionBy\":1,\"lastActionDateTime\":\"2020-11-10T08:52:28.574Z\",\"vatPercentage\":5,\"vatAmount\":1.9500000000000002,\"baseVatAmount\":0.65,\"discount\":0,\"rowId\":0}],\"attachments\":[],\"objScheduleDTO\":[{\"strPayAfter\":\"PO\",\"intDays\":12,\"numTotalValue\":100,\"intActionBy\":1,\"intPaymentScheduleId\":0}]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/procurement/PurchaseOrder/CreateStanderdAssetServicePurchaseOrder",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"procurement",
+						"PurchaseOrder",
+						"CreateStanderdAssetServicePurchaseOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update standared po",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"objHeaderDTO\":{\"accountId\":1,\"businessUnitId\":1,\"sbuId\":1,\"plantId\":4,\"leadDay\":0,\"plantName\":\"Gas Stove\",\"warehouseId\":4,\"warehouseName\":\"Gas Stove WH (MPIL) [Gas Stove]\",\"purchaseOrganizationId\":1,\"businessPartnerId\":5,\"purchaseOrderDate\":\"2022-12-01\",\"purchaseOrderTypeId\":1,\"incotermsId\":1,\"currencyId\":141,\"supplierReference\":\"\",\"returnDate\":\"2020-12-06T09:35:19.200Z\",\"referenceDate\":\"2020-11-10\",\"referenceTypeId\":2,\"paymentTerms\":2,\"cashOrAdvancePercent\":0,\"otherTerms\":\"\",\"poValidityDate\":\"2022-12-08\",\"lastShipmentDate\":\"2022-12-20\",\"paymentDaysAfterDelivery\":0,\"deliveryAddress\":\"MPIL, Shafipur, Gazipur, Dhaka 1208\",\"actionBy\":1,\"grossDiscount\":0,\"freight\":0,\"commission\":0,\"othersCharge\":0,\"currencyCode\":\"BDT\",\"purchaseOrderNo\":\"MPIL-PO-22129\",\"purchaseOrderId\":20104},\"objRowListDTO\":[{\"prCsrefId\":0,\"prCsrefCode\":\"\",\"referenceId\":45,\"referenceCode\":\"MPIL-PR-221141\",\"referenceQty\":100,\"itemId\":16,\"itemName\":\"Gas stove\",\"uoMid\":107,\"uoMname\":\"Pieces [P]\",\"costCenterId\":0,\"costCenterName\":\"\",\"costElementId\":0,\"costElementName\":\"\",\"profitCenterId\":0,\"profitCenterName\":0,\"purchaseDescription\":\"\",\"orderQty\":12,\"basePrice\":100,\"finalPrice\":1200,\"totalValue\":2400,\"actionBy\":1,\"lastActionDateTime\":\"2020-11-10T08:52:28.574Z\",\"vatPercentage\":100,\"vatAmount\":1200,\"baseVatAmount\":100,\"discount\":0,\"rowId\":20118}],\"attachments\":[],\"objScheduleDTO\":[{\"strPayAfter\":\"PO\",\"intDays\":1,\"numTotalValue\":100,\"intActionBy\":1,\"intPaymentScheduleId\":20074}]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/procurement/EditPurchaseOrder/EditPurchaseOrder",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"procurement",
+						"EditPurchaseOrder",
+						"EditPurchaseOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get item",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/item/ItemBasic/ItemMasterItemSearchPagination?intBusinessUnitId=&ItemType=&ItemCategory=&ItemSubCategory=&AccountId=1&Status=All&PageNo=1&PageSize=50&sortColumn=intMasterItemId&sort=descend",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"item",
+						"ItemBasic",
+						"ItemMasterItemSearchPagination"
+					],
+					"query": [
+						{
+							"key": "intBusinessUnitId",
+							"value": ""
+						},
+						{
+							"key": "ItemType",
+							"value": ""
+						},
+						{
+							"key": "ItemCategory",
+							"value": ""
+						},
+						{
+							"key": "ItemSubCategory",
+							"value": ""
+						},
+						{
+							"key": "AccountId",
+							"value": "1"
+						},
+						{
+							"key": "Status",
+							"value": "All"
+						},
+						{
+							"key": "PageNo",
+							"value": "1"
+						},
+						{
+							"key": "PageSize",
+							"value": "50"
+						},
+						{
+							"key": "sortColumn",
+							"value": "intMasterItemId"
+						},
+						{
+							"key": "sort",
+							"value": "descend"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get specific item",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/sme/Item/GetItemById?ajLwFvwcDhIead5+jG0iyg==",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"sme",
+						"Item",
+						"GetItemById"
+					],
+					"query": [
+						{
+							"key": "ajLwFvwcDhIead5+jG0iyg",
+							"value": "="
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://madina.ibos.io",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJjOTBmZjllMy1hYzEwLTQxN2UtYTUwNy0zMTdhZjI3NGJiZTYiLCJlbnJvbGwiOiJRcmkzMzc2RUZwanhKZEJCYXVHWkxnPT0iLCJlbWFpbGFkZHJlc3MiOiJwYXJ2ZWpAbWFkaW5hLmNvIiwidXNlcklkIjoxLCJhY2NvdW50SWQiOjEsInNvY2tldCI6Im1hZGluYS1zb2NrZXQuaWJvcy5pbyIsInN1YiI6InBhcnZlakBtYWRpbmEuY28iLCJqdGkiOiI2OWY1NTU0OC1iZjJiLTQyZTgtYTc0ZS0yNTM0NDliYTM5ZGUiLCJpYXQiOiIxMi8wNi8yMDIyIDA1OjQ0OjIzIiwiZXhwIjoxNjcwMjYzMjAwLCJpc3MiOiJBa2lqSW5mb1RlY2ggTHRkLiAiLCJhdWQiOiJBdWRpZW5jZSJ9.EC1815emuJLUVSyHHZql0Xt1FBnn2Xu8JpMiC6Vpkts",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
